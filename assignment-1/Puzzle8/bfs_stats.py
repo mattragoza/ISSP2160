@@ -73,9 +73,10 @@ output = breadth_first_search_stats(problem)
 print('Solution Example 4:')
 Puzzle8.print_path(output)
 
+wait = input("PRESS ENTER TO CONTINUE.")
+
 # Solution to Example 5 may take too long to calculate using vanilla bfs
-# problem = Puzzle8.Puzzle8Problem(Puzzle8.Example5) 
-# output = breadth_first_search_stats(problem)
-# print('Solution Example 5:')
-# Puzzle8.print_path(output)
- 
+problem = Puzzle8.Puzzle8Problem(Puzzle8.Example5) 
+output = breadth_first_search_stats(problem)
+print('Solution Example 5:')
+Puzzle8.print_path(output)

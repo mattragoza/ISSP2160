@@ -103,14 +103,15 @@ Puzzle8.print_path(output)
 
 wait = input("PRESS ENTER TO CONTINUE.")
 
-#problem = Puzzle8.Puzzle8Problem(Puzzle8.Example4) 
-#output = depth_first_search_limit(problem)
-#print('Solution Example 4:')
-#Puzzle8.print_path(output)
+problem = Puzzle8.Puzzle8Problem(Puzzle8.Example4) 
+output = depth_first_search_limit(problem, limit=10)
+print('Solution Example 4:')
+Puzzle8.print_path(output)
+
+wait = input("PRESS ENTER TO CONTINUE.")
 
 # Solution to Example 5 may take too long to calculate using vanilla bfs
 #problem = Puzzle8.Puzzle8Problem(Puzzle8.Example5) 
-#output = depth_first_search_limit(problem)
+#output = depth_first_search_limit(problem, limit=10)
 #print('Solution Example 5:')
 #Puzzle8.print_path(output)
- 
