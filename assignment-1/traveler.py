@@ -53,42 +53,48 @@ class node(object):
 		return s + self.state
 
 
-def bfs(start, succ_fn, avoid_cycles=False, avoid_repeats=False):
+def bfs(init_state, succ_fn, goal_fn, avoid_cycles=False, avoid_repeats=False):
 	'''
 	Perform a breadth-first search.
 	'''
 	traversal = []
-	queue = [node(start)]
-	min_depth = inf_dict(start) if avoid_repeats else None
+	queue = [node(init_state)]
+	min_depth = inf_dict(init_state) if avoid_repeats else None
 	while queue and len(traversal) < 10:
-		current = queue.pop(0)
-		traversal.append(current)
-		neighbors = current.expand(succ_fn, avoid_cycles, min_depth)
-		queue.extend(neighbors)
+		current_node = queue.pop(0)
+		traversal.append(current_node)
+		neighbor_nodes = current_node.expand(succ_fn, avoid_cycles, min_depth)
+		queue.extend(neighbor_nodes)
 
 	return traversal, queue
 
-def dfs(start, succ_fn, avoid_cycles=False, avoid_repeats=False):
+def dfs(init_state, succ_fn, goal_fn, avoid_cycles=False, avoid_repeats=False):
 	'''
 	Perform a depth-first search.
 	'''
 	traversal = []
-	stack = [node(start)]
-	min_depth = inf_dict(start) if avoid_repeats else None
+	stack = [node(init_state)]
+	min_depth = inf_dict(init_state) if avoid_repeats else None
 	while stack and len(traversal) < 10:
-		current = stack.pop(-1)
-		traversal.append(current)
-		neighbors = current.expand(succ_fn, avoid_cycles, min_depth)
-		# reverse to ensure we break ties alphabetically
-		stack.extend(reversed(list(neighbors)))
+		current_node = stack.pop(-1)
+		traversal.append(current_node)
+		neighbor_nodes = current_node.expand(succ_fn, avoid_cycles, min_depth)
+		stack.extend(neighbor_nodes)
 
 	return traversal, stack
 
-t, q = bfs(
-	start='S',
-	succ_fn=graph.__getitem__,
-	avoid_cycles=False,
-	avoid_repeats=True,
-)
-print(t)
-print(q)
+init_state = 'S'
+succ_fn = lambda x: sorted(graph[x])
+goal_fn = lambda x: x == 'G'
+
+t, q = bfs(init_state, succ_fn, goal_fn) 
+print(' -> '.join(t_.state for t_ in t))
+
+t, q = dfs(init_state, succ_fn, goal_fn, avoid_cycles=True) 
+print(' -> '.join(t_.state for t_ in t))
+
+t, q = bfs(init_state, succ_fn, goal_fn, avoid_cycles=True)  
+print(' -> '.join(t_.state for t_ in t))
+
+t, q = bfs(init_state, succ_fn, goal_fn, avoid_repeats=True) 
+print(' -> '.join(t_.state for t_ in t))
