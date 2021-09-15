@@ -82,28 +82,28 @@ def breadth_first_search_repeats(problem):
     return Puzzle8.NULL
 
   
-problem = Puzzle8.Puzzle8Problem(Puzzle8.Example1) 
+problem = Puzzle8.Puzzle8_Problem(Puzzle8.Example1) 
 output = breadth_first_search_repeats(problem)
 print('Solution Example 1:')
 Puzzle8.print_path(output)
 
 wait = input("PRESS ENTER TO CONTINUE.")
 
-problem = Puzzle8.Puzzle8Problem(Puzzle8.Example2) 
+problem = Puzzle8.Puzzle8_Problem(Puzzle8.Example2) 
 output = breadth_first_search_repeats(problem)
 print('Solution Example 2:')
 Puzzle8.print_path(output)
 
 wait = input("PRESS ENTER TO CONTINUE.")
 
-problem = Puzzle8.Puzzle8Problem(Puzzle8.Example3) 
+problem = Puzzle8.Puzzle8_Problem(Puzzle8.Example3) 
 output = breadth_first_search_repeats(problem)
 print('Solution Example 3:')
 Puzzle8.print_path(output)
 
 wait = input("PRESS ENTER TO CONTINUE.")
 
-problem = Puzzle8.Puzzle8Problem(Puzzle8.Example4) 
+problem = Puzzle8.Puzzle8_Problem(Puzzle8.Example4) 
 output = breadth_first_search_repeats(problem)
 print('Solution Example 4:')
 Puzzle8.print_path(output)
@@ -111,7 +111,7 @@ Puzzle8.print_path(output)
 wait = input("PRESS ENTER TO CONTINUE.")
 
 # Solution to Example 5 may take too long to calculate using vanilla bfs
-problem = Puzzle8.Puzzle8Problem(Puzzle8.Example5) 
+problem = Puzzle8.Puzzle8_Problem(Puzzle8.Example5) 
 output = breadth_first_search_repeats(problem)
 print('Solution Example 5:')
 Puzzle8.print_path(output)
