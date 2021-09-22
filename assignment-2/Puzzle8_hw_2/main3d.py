@@ -6,8 +6,8 @@ implementation of the evaluation function driven search
 @author: milos
 """
 
-import Puzzle8, heuristic
-Puzzle8.h_function = heuristic.h_function
+import Puzzle8, heuristic2
+Puzzle8.h_function = heuristic2.h_function
 
  #### ++++++++++++++++++++++++++++++++++++++++++++++++++++
  #### evaluation function driven search
