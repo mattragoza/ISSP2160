@@ -44,6 +44,7 @@ def parse_args(argv):
     parser.add_argument('--n_steps', type=int, default=20000)
     parser.add_argument('--init_temp', type=int, default=100)
     parser.add_argument('--cooling_fn', default='linear')
+    parser.add_argument('--cooling_base', type=float, default=0.01)
     parser.add_argument('--no_agg', default=False, action='store_true')
     return parser.parse_args(argv)
 
@@ -67,6 +68,7 @@ def main(argv):
             no_of_steps=args.n_steps,
             init_temperature=args.init_temp,
             cooling_fn=cooling_fn_map[args.cooling_fn],
+            cooling_kws=dict(b=args.cooling_base),
             verbose=False
         )
         best_dists.append(best_dist)

@@ -27,6 +27,7 @@ def sim_anneal(
     no_of_steps,
     init_temperature,
     cooling_fn=linear_cooling,
+    cooling_kws=dict(),
     verbose=False
 ):
     '''
@@ -54,7 +55,7 @@ def sim_anneal(
         n_tours_tried += 1
 
         # linear cooling schedule
-        temp = init_temperature * cooling_fn(i, k=no_of_steps)
+        temp = init_temperature * cooling_fn(i, k=no_of_steps, **cooling_kws)
 
         if next_dist < curr_dist:
             if verbose:
