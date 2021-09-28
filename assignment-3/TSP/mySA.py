@@ -9,7 +9,7 @@ def cosine_cooling(i, k, f=1, **kwargs):
     cooling coefficient for simulation 
     step i out of k.
     '''
-    return (k - i)/k * (1 + math.cos(math.pi*i*f)/2)
+    return (k - i)/k * (1 + math.cos(math.pi*i*f/k)/2)
 
 
 def power_cooling(i, k, b=0.01, **kwargs):
@@ -27,7 +27,7 @@ def step_cooling(i, k, b=0.01, n=5, **kwargs):
     coefficient for simulation step
     i out of k.
     '''
-    return b**math.floor(n*i/k)
+    return b**(math.floor(n*i/k)/n)
 
 
 def parse_args(argv):
