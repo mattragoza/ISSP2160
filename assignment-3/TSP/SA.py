@@ -14,7 +14,7 @@ def p_accept(delta, temp):
     return math.exp(-delta/temp)
 
 
-def linear_cooling(i, k):
+def linear_cooling(i, k, **kwargs):
     '''
     Return a linear cooling coefficient
     for simulation step i out of k.

@@ -3,7 +3,7 @@ import TSP, SA
 from SA import linear_cooling
 
 
-def cosine_cooling(i, k, f=1):
+def cosine_cooling(i, k, f=1, **kwargs):
     '''
     Return a cosine-modulated linear
     cooling coefficient for simulation 
@@ -12,7 +12,7 @@ def cosine_cooling(i, k, f=1):
     return (k - i)/k * (1 + math.cos(math.pi*i*f)/2)
 
 
-def power_cooling(i, k, b=0.01):
+def power_cooling(i, k, b=0.01, **kwargs):
     '''
     Return an exponential cooling
     coefficient for simulation step
@@ -21,7 +21,7 @@ def power_cooling(i, k, b=0.01):
     return b**(i/k)
 
 
-def step_cooling(i, k, b=0.5, n=5):
+def step_cooling(i, k, b=0.5, n=5, **kwargs):
     '''
     Return an step-wise cooling
     coefficient for simulation step
