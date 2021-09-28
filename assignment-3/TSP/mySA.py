@@ -40,9 +40,11 @@ cooling_fn_map = {
 
 def parse_args(argv):
     parser = argparse.ArgumentParser()
+    parser.add_argument('--n_trials', type=int, default=10)
     parser.add_argument('--n_steps', type=int, default=20000)
     parser.add_argument('--init_temp', type=int, default=100)
     parser.add_argument('--cooling_fn', default='linear')
+    parser.add_argument('--no_agg', default=False, action='store_true')
     return parser.parse_args(argv)
 
 
@@ -50,8 +52,8 @@ def main(argv):
     args = parse_args(argv)
     tsp_problem = TSP.TSP_Problem(TSP.Standard_Cities)
 
-    n_trials = 10
-    mean_dist = 0
+    n_trials = args.n_trials
+    best_dists = []
     for i in range(n_trials):
         (
             init_tour,
@@ -67,10 +69,15 @@ def main(argv):
             cooling_fn=cooling_fn_map[args.cooling_fn],
             verbose=False
         )
-        mean_dist += best_dist/n_trials
+        best_dists.append(best_dist)
 
-    print(f'mean_dist = {mean_dist:.2f}')
-
+    if args.no_agg:
+        print('best_dist')
+        for d in best_dists:
+            print(f'{d:.2f}')
+    else:
+        mean_best_dist = sum(best_dists) / args.n_trials
+        print(f'best_dist = {mean_best_dist:.2f}')
 
 if __name__ == '__main__':
     main(sys.argv[1:])
