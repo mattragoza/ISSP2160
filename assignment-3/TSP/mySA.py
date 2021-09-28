@@ -52,7 +52,7 @@ def main(argv):
         'step': step_cooling,
     }
 
-    best_dists_and_tours = []
+    best_tours_and_stats = []
     for i in range(args.n_trials):
         (
             init_tour,
@@ -69,18 +69,34 @@ def main(argv):
             cooling_kws=dict(b=args.cooling_base),
             verbose=False
         )
-        best_dists_and_tours.append((best_dist, best_tour))
+        best_tours_and_stats.append(
+            (best_dist, best_tour, init_dist, n_tours_tried, n_tours_accepted)
+        )
 
     if args.no_agg:
-        print('trial_idx best_dist best_tour')
-        for i, (best_dist, best_tour) in enumerate(best_dists_and_tours):
-            print(f'{i} {best_dist:.2f} {",".join(map(str, best_tour))}')
+        print('trial_idx init_dist n_tours_tried n_tours_accepted best_dist best_tour')
+        for i, (bd, bt, id_, nt, na) in enumerate(best_tours_and_stats):
+            print(f'{i} {id_:.2f} {nt:.2f} {na:.2f} {bd:.2f} {",".join(map(str, best_tour))}')
     else:
-        mean_best_dist = sum(d for d,t in best_dists_and_tours) / args.n_trials
-        min_best_dist, min_best_tour = sorted(best_dists_and_tours)[0]
+        mean_best_dist = sum(t[0] for t in best_tours_and_stats) / args.n_trials
+        mean_init_dist = sum(t[2] for t in best_tours_and_stats) / args.n_trials
+        mean_n_tried = sum(t[3] for t in best_tours_and_stats) / args.n_trials
+        mean_n_accept = sum(t[4] for t in best_tours_and_stats) / args.n_trials
         print(f'mean_best_dist = {mean_best_dist:.2f}')
-        print(f'min_best_dist = {min_best_dist:.2f}')
-        print(f'min_best_tour = {min_best_tour}')
+        print(f'mean_n_tried = {mean_n_tried:.2f}')
+        print(f'mean_n_accept = {mean_n_accept:.2f}')
+        print(f'mean_init_dist = {mean_init_dist:.2f}')
 
+        best_tour_and_stats = sorted(best_tours_and_stats)[0]
+        best_best_dist = best_tour_and_stats[0]
+        best_best_tour = best_tour_and_stats[1]
+        best_init_dist = best_tour_and_stats[2]
+        best_n_tried = best_tour_and_stats[3]
+        best_n_accept = best_tour_and_stats[4]
+        print(f'best_best_dist = {best_best_dist:.2f}')
+        print(f'best_n_tried = {best_n_tried:.2f}')
+        print(f'best_n_accept = {best_n_accept:.2f}')
+        print(f'best_init_dist = {best_init_dist:.2f}')
+        print(f'best_best_tour = {best_best_tour}')
 if __name__ == '__main__':
     main(sys.argv[1:])
