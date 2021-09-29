@@ -3,7 +3,7 @@ import TSP, SA
 from SA import linear_cooling
 
 
-def cosine_cooling(i, k, f=1, **kwargs):
+def cosine_cooling(i, k, f=10, **kwargs):
     '''
     Return a cosine-modulated linear
     cooling coefficient for simulation 
@@ -34,9 +34,9 @@ def parse_args(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--n_trials', type=int, default=10)
     parser.add_argument('--n_steps', type=int, default=20000)
-    parser.add_argument('--init_temp', type=int, default=50)
-    parser.add_argument('--cooling_fn', type=str, default='step')
-    parser.add_argument('--cooling_base', type=float, default=0.01)
+    parser.add_argument('--init_temp', type=int, default=1)
+    parser.add_argument('--cooling_fn', type=str, default='power')
+    parser.add_argument('--cooling_base', type=float, default=0.1)
     parser.add_argument('--no_agg', default=False, action='store_true')
     return parser.parse_args(argv)
 
@@ -44,6 +44,13 @@ def parse_args(argv):
 def main(argv):
     args = parse_args(argv)
     tsp_problem = TSP.TSP_Problem(TSP.Standard_Cities)
+
+    if not args.no_agg:
+        print(f'n_trials = {args.n_trials}')
+        print(f'n_steps = {args.n_steps}')
+        print(f'init_temp = {args.init_temp}')
+        print(f'cooling_fn = {args.cooling_fn}')
+        print(f'cooling_base = {args.cooling_base}')
 
     cooling_fn_map = {
         'linear': linear_cooling,
@@ -54,6 +61,7 @@ def main(argv):
 
     best_tours_and_stats = []
     for i in range(args.n_trials):
+
         (
             init_tour,
             init_dist,
@@ -72,6 +80,11 @@ def main(argv):
         best_tours_and_stats.append(
             (best_dist, best_tour, init_dist, n_tours_tried, n_tours_accepted)
         )
+        if not args.no_agg:
+            print('.', end='', flush=True)
+
+    if not args.no_agg:
+        print()
 
     if args.no_agg:
         print('trial_idx init_dist n_tours_tried n_tours_accepted best_dist best_tour')

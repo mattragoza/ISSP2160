@@ -93,6 +93,9 @@ def sim_anneal(
 
 
 if __name__ == '__main__':
+
+    n_steps = 100000
+    init_temp = 100
     tsp_problem = TSP.TSP_Problem(TSP.Standard_Cities)
     (
         init_tour,
@@ -101,9 +104,12 @@ if __name__ == '__main__':
         best_dist,
         n_tours_tried,
         n_tours_accepted
-    ) = sim_anneal(tsp_problem, 100000, 100, verbose=False)
+    ) = sim_anneal(tsp_problem, n_steps, init_temp, verbose=False)
 
+    print(f'init_tour = {init_tour}')
     print(f'init_dist = {init_dist:.2f}')
-    print(f'best_dist = {best_dist:.2f}')
+    print(f'init_temp = {init_temp:.2f}')
     print(f'n_tours_tried = {n_tours_tried}')
     print(f'n_tours_accepted = {n_tours_accepted}')
+    print(f'best_tour = {best_tour}')
+    print(f'best_dist = {best_dist:.2f}')
