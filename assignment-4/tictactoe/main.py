@@ -3,7 +3,7 @@ Let's play the tic-tac-toe game!
 
 @author: milos
 """
-import sys, os, argparse
+import sys, os, argparse, random
 
 from tictactoe import TicTacToe
 from player import Player
@@ -23,11 +23,15 @@ def parse_args(argv):
     parser.add_argument('--n_B_starts', type=int, default=1, help='number of games to play where player B starts')
     parser.add_argument('--print_steps', default=False, action='store_true')
     parser.add_argument('--out_file', type=str, default=None, help='output file to write win/loss/draw counts')
+    parser.add_argument('--random_seed', type=int, default=None)
     return parser.parse_args(argv)
 
 
 def main(argv):
     args = parse_args(argv)
+
+    if args.random_seed is not None:
+        random.seed(args.random_seed)
 
     heuristic_map = {
         'naive': NaiveHeuristics(),
