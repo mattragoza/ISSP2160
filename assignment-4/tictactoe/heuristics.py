@@ -107,7 +107,9 @@ class Heuristics:
                     score += pat[1]
             return score
 
-        return sum((_eval_row(board, player),
-                   _eval_col(board, player),
-                   _eval_diag(board, player),
-                   _eval_counter_diag(board, player)))
+        return sum((
+            _eval_row(board, player),
+            _eval_col(board, player),
+            _eval_diag(board, player),
+            _eval_counter_diag(board, player)
+        ))
