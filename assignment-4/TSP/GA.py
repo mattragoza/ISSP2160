@@ -23,11 +23,15 @@ def parse_args(argv):
     parser.add_argument('--out_dir', default='fig/', help='directory where to place the plots (it will be automatically created if not existent')
     parser.add_argument('--no_plot', default=False, action='store_true', help='output stats as a metrics file instead of a plot')
     parser.add_argument('--out_file', default=None, help='name of file to output metrics')
+    parser.add_argument('--random_seed', default=None, type=int)
     return parser.parse_args(argv)
 
 
 def main(argv):
     args = parse_args(argv)
+
+    if args.random_seed is not None:
+        random.seed(args.random_seed)
 
     # create output directory if not present
     if not args.no_plot and not os.path.isdir(args.out_dir):
