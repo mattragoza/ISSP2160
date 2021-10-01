@@ -32,7 +32,7 @@ def main(argv):
     heuristic_map = {
         'naive': NaiveHeuristics(),
         'basic': Heuristics(),
-        'test': my_heuristics.TestHeuristics(),
+        'my': my_heuristics.MyHeuristics(),
     }
 
     # define players
@@ -58,7 +58,7 @@ def main(argv):
             stats['Tied'] += 1
         else:
             stats['{} wins'.format(winner.name)] += 1
-        outcomes.append((i, repr('Player A'), repr(winner.name)))
+        outcomes.append((i, repr('Player A'), repr(winner.name) if winner else 'Tie'))
 
     for i in range(args.n_B_starts):
         # Player B moves first
@@ -71,7 +71,7 @@ def main(argv):
         else:
             stats['{} wins'.format(winner.name)] += 1
         outcomes.append(
-            (i+args.n_A_starts, repr('Player B'), repr(winner.name))
+            (i+args.n_A_starts, repr('Player B'), repr(winner.name) if winner else 'Tie')
         )
 
     print(stats)
