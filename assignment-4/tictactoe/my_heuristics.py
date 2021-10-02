@@ -1,5 +1,50 @@
 from heuristics import Heuristics
 
+
 class MyHeuristics(Heuristics):
-	def eval_board(self, board, this_player):
-		return 0
+
+    def __init__(self):
+        self.patterns = {
+            '__i__': 1,
+            '_ii__': 1,
+            '__ii_': 1,
+            '_itt_': 1,
+            '_tti_': 1,
+            '_iii_': 2,
+            '__iii': 2,
+            'iii__': 2,
+            'tttti': 5,
+            'itttt': 5,
+            'itttti': 10,
+            'ii_i_': 2,
+            '_ii_i': 2,
+            '_i_ii': 2,
+            'i_ii_': 2,
+            'tttt_': -10,
+            '_tttt': -10,
+            'tt_tt': -3,
+            '_tttt_': -20,
+            'iiiii': 100,
+            '_ttti': 4,
+            'ittt_': 4,
+            'titt_': 3,
+            'ttit_': 3,
+            '_titt': 3,
+            '_ttit': 3,
+            'iiii_': 1,
+            '_iiii': 1,
+            'ttitt': 2,
+            'i_i__': 1,
+            '__i_i': 1,
+            'ii___': 1,
+            '___ii': 1,
+            'ttti_': 1,
+            '_ittt': 1,
+            'tt_ti': 1,
+            'it_tt': 1,
+            '_i_i_': 1,
+            't_ttt': -3,
+            'ttt_t': -3,
+            'tttit': 3,
+            'tittt': 3,
+        }

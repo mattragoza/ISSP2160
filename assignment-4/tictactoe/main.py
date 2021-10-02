@@ -9,18 +9,18 @@ from tictactoe import TicTacToe
 from player import Player
 from heuristics import Heuristics
 from naive_heuristics import NaiveHeuristics
-import my_heuristics
+from my_heuristics import MyHeuristics
 
 
 def parse_args(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--board_size', type=int, default=10, help='play games on an N x N board of this size')
-    parser.add_argument('--A_heuristic', type=str, default='basic', help='heuristic function for player A (naive|basic)')
-    parser.add_argument('--B_heuristic', type=str, default='naive', help='heuristic function for player B (naive|basic)')
-    parser.add_argument('--A_k_ply', type=int, default=2, help='depth limit for player A\'s search algorithm')
-    parser.add_argument('--B_k_ply', type=int, default=2, help='depth limit for player B\'s search algorithm')
-    parser.add_argument('--n_A_starts', type=int, default=1, help='number of games to play where player A starts')
-    parser.add_argument('--n_B_starts', type=int, default=1, help='number of games to play where player B starts')
+    parser.add_argument('--board_size', type=int, default=10, help='play games on N x N board of this size (default=10)')
+    parser.add_argument('--A_heuristic', type=str, default='basic', help='heuristic function for player A (naive|basic; default=basic)')
+    parser.add_argument('--B_heuristic', type=str, default='naive', help='heuristic function for player B (naive|basic; default=naive)')
+    parser.add_argument('--A_k_ply', type=int, default=2, help='depth limit for player A\'s search algorithm (default=2)')
+    parser.add_argument('--B_k_ply', type=int, default=2, help='depth limit for player B\'s search algorithm (default=2)')
+    parser.add_argument('--n_A_starts', type=int, default=1, help='number of games to play where player A starts (default=1)')
+    parser.add_argument('--n_B_starts', type=int, default=1, help='number of games to play where player B starts (default=1)')
     parser.add_argument('--print_steps', default=False, action='store_true')
     parser.add_argument('--out_file', type=str, default=None, help='output file to write win/loss/draw counts')
     parser.add_argument('--random_seed', type=int, default=None)
@@ -36,7 +36,7 @@ def main(argv):
     heuristic_map = {
         'naive': NaiveHeuristics(),
         'basic': Heuristics(),
-        'my': my_heuristics.MyHeuristics(),
+        'my': MyHeuristics(),
     }
 
     # define players
