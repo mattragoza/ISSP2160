@@ -33,7 +33,7 @@ class Player:
     def set_k_ply(self, k):
         self.k = k
 
-    def make_one_move(self, board, num_empty_cells):
+    def make_one_move(self, board, num_empty_cells, print_hvals=False):
         """
         Makes one move based on the current board configuration.
 
@@ -72,8 +72,24 @@ class Player:
 
         k = min(self.k, num_empty_cells)
         candidates, metric = scoring(self.marker, board, self.heuristic, k)
+
+        if print_hvals: # print heuristic values on board
+            h_board = []
+            for i, row in enumerate(board):
+                h_board.append([])
+                for j, val in enumerate(row):
+                    h_board[i].append(val)
+            for i, j, score in candidates:
+                h_board[i][j] = str(score)
+            for row in h_board:
+                a = ''
+                for i in row:
+                    a += str(i).rjust(3)
+                print(a.replace('X', '.').replace('O', '.'))
+
         best_score = metric(candidates, key=lambda t: t[2])[2]
         final_choices = [t[:2] for t in candidates if t[2] == best_score]
         i, j = random.choice(final_choices)
+
         board[i][j] = self.marker
-        return i, j
+        return i, j, best_score

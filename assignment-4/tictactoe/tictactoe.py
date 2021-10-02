@@ -57,11 +57,11 @@ class TicTacToe:
         """
         def _make_one_move(game, player):
             num_empty_cells = game.board_size**2 - game.num_moves
-            i, j = player.make_one_move(game.board, num_empty_cells)
+            i, j, score = player.make_one_move(game.board, num_empty_cells, print_hvals=self.print_steps)
             game.num_moves += 1
             if game.print_steps:
-                print('{}({}) makes one move at ({}, {})'.format(player.name, player.marker, i, j))
-                game.print_board()
+                print('{}({}) makes one move at ({}, {}) for {}'.format(player.name, player.marker, i, j, score))
+                game.print_board(i, j)
                 a=input('press Return')
             else:
                 print(player.marker, end='', flush=True)
@@ -89,12 +89,14 @@ class TicTacToe:
                 print()
                 return _result(end_flag, self.playerO)
 
-    def print_board(self):
-        for row in self.board:
-            a=''
-            for i in row:
-                a+=i
-            print(a)
+    def print_board(self, i_new, j_new):
+        for i, row in enumerate(self.board):
+            a= ''
+            for j, c in enumerate(row):
+                if i != i_new or j != j_new:
+                    c = c.lower()
+                a += c.rjust(3)
+            print(a.replace('_', '.'))
 
     def check_end(self, i, j):
         """
