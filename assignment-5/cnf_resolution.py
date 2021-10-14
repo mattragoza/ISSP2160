@@ -94,3 +94,5 @@ while i < len(KB):
 			pass
 
 	i += 1
+
+print(len(KB))

@@ -63,6 +63,8 @@ def bfs(init_state, succ_fn, goal_fn, avoid_cycles=False, avoid_repeats=False):
 	while queue and len(traversal) < 10:
 		current_node = queue.pop(0)
 		traversal.append(current_node)
+		if goal_fn(current_node):
+			return traversal, queue
 		neighbor_nodes = current_node.expand(succ_fn, avoid_cycles, min_depth)
 		queue.extend(neighbor_nodes)
 
@@ -78,6 +80,8 @@ def dfs(init_state, succ_fn, goal_fn, avoid_cycles=False, avoid_repeats=False):
 	while stack and len(traversal) < 10:
 		current_node = stack.pop(-1)
 		traversal.append(current_node)
+		if goal_fn(current_node):
+			return traversal, stack
 		neighbor_nodes = current_node.expand(succ_fn, avoid_cycles, min_depth)
 		stack.extend(neighbor_nodes)
 
@@ -85,7 +89,7 @@ def dfs(init_state, succ_fn, goal_fn, avoid_cycles=False, avoid_repeats=False):
 
 init_state = 'S'
 succ_fn = lambda x: sorted(graph[x])
-goal_fn = lambda x: x == 'G'
+goal_fn = lambda x: x.state == 'G'
 
 t, q = bfs(init_state, succ_fn, goal_fn) 
 print(' -> '.join(t_.state for t_ in t))

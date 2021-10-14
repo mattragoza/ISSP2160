@@ -11,7 +11,7 @@ import Puzzle8
  #### ++++++++++++++++++++++++++++++++++++++++++++++++++++
  #### evaluation function driven search
 
-LATEX_MODE = True
+LATEX_MODE = False
 
 
 def print_stats(n_expanded, n_generated, max_queue_len, solution_len):
